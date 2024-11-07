@@ -1,0 +1,44 @@
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../../../public/gigfinder-bg.png') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.hero-section {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.find-events-button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #ff4b2b;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.find-events-button:hover {
+  background-color: #ff2a1a;
+}

@@ -1,0 +1,8 @@
+# Node.js
+/node_modules
+/server/node_modules
+/client/node_modules
+/client/build
+
+# Environment Variables
+.env
