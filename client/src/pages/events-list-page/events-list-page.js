@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './events-list-page.css';
+import EventCard from "../../components/event-card/event-card";
+import { LocationContext } from "../../context/location-context";
 // events map import 
 
 function EventsListPage() {
   const [events, setEvents] = useState([]);
+  const { location } = useContext(LocationContext);
 
   //fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/events');
-        const data = response.json();
+        const response = await fetch(`http://localhost:3001/api/events?lat=${location.latitude}&long=${location.longitude}`);
+        const data = await response.json();
+        console.log(data.events);
         setEvents(data.events);
         
       } catch (error) {
@@ -19,19 +23,26 @@ function EventsListPage() {
     }
 
     fetchEvents();
-    
-  }, []);
+
+  }, [location]);
 
 
   //add to favourites
 
   return (
     //NAVBAR
-    <div className="events-list-page">
+    //implement loading spinner while fetching data 
+      <div className="events-list-page">
       <div className="events-list-container"> 
-          {/* map through events here */}
+        {events.length > 0 ? (
+          events.map((event) => (
+            <EventCard key={event.id} event={event} /> // Render EventCard for each event
+          ))
+        ) : (
+          <p>No events found.</p>
+        )}
       </div>
-      {/* insert map component here */}
+      {/* Insert map component here */}
     </div>
   )
 }

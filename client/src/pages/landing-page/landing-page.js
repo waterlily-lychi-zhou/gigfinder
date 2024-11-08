@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { LocationContext } from "../../context/location-context";
 import './landing-page.css';
 
 function LandingPage() {
   const navigate = useNavigate();
+  const { setLocation } = useContext(LocationContext);
 
   //handle 'find' button click 
   function handleFindEvents() {
@@ -11,9 +13,12 @@ function LandingPage() {
     //get the users geolocation 
     navigator.geolocation.getCurrentPosition((position) => {
         const { longitude, latitude } = position.coords;
-      
-        //navigate to the events page - pass long and lat as query params
-        navigate(`/events?lat=${latitude}&long=${longitude}`);
+
+        //set location context
+        setLocation({ longitude, latitude })
+        
+        //navigate to the events page 
+        navigate(`/events`);
       },
       (error) => {
         console.error('Error getting location:  ', error);
