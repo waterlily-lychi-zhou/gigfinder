@@ -21,8 +21,7 @@ function EventsListPage() {
         console.error('error fetching events:  ', error);
       }
     }
-
-    fetchEvents();
+    if (location.latitude && location.longitude) fetchEvents();
 
   }, [location]);
 
