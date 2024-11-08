@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import './events-list-page.css';
-import EventCard from "../../components/event-card/event-card";
 import { LocationContext } from "../../context/location-context";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { EventList } from "../../components/event-list/event-list";
 // events map import 
 
 function EventsListPage() {
@@ -38,19 +38,11 @@ function EventsListPage() {
       {loading ? (
         <ScaleLoader />
       ) : (
-        <div className="events-list-container">
-          {events.length > 0 ? (
-            events.map((event) => (
-              <EventCard key={event.id} event={event} /> // Render EventCard for each event
-            ))
-          ) : (
-            <p>No events found.</p>
-          )}
-        </div>
+        <EventList events={events}/>
       )}
       {/* Insert map component here */}
     </div>
   );
-        }
+}
 
 export default EventsListPage;

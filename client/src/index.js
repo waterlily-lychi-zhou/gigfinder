@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { LocationProvider } from './context/location-context';
+import { FavouritesProvider } from './context/favourites-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <LocationProvider>
+      <FavouritesProvider>
       <App />
+      </FavouritesProvider>
     </LocationProvider>
   </React.StrictMode>
 );
