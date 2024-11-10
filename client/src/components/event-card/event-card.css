@@ -37,7 +37,7 @@
   margin: 0 0 10px;
 }
 
-.add-to-favorites-button {
+.add-to-favourites {
   background-color: #ff4b2b;
   color: white;
   border: none;
@@ -47,6 +47,20 @@
   transition: background-color 0.3s;
 }
 
-.add-to-favorites-button:hover {
+.add-to-favourites:hover {
   background-color: #ff2a1a;
+}
+
+.remove-from-favourites {
+  background-color: #1207f1;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-from-favourites:hover {
+  background-color: #4400fd;
 }

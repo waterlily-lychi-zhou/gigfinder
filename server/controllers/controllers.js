@@ -16,8 +16,20 @@ const controllers = {
       if(!response.ok) return res.status(400).send('Failed to fetch events')
       
       const data = await response.json();
+      
       const events = data._embedded ? data._embedded.events : [];
-      res.status(200).json({ events });
+
+      console.log(events.length);
+
+      const today = new Date();
+      const futureEvents = events.filter(event => {
+        const eventDate = new Date(event.dates.start.dateTime);
+        return eventDate >= today;
+      })
+
+      console.log(futureEvents.length);
+
+      res.status(200).json({ futureEvents });
     } catch (error) {
       console.error('error fetching events:  ', error);
     }
@@ -40,6 +52,7 @@ const controllers = {
       const favourite = new Favourite({ eventId, eventDetails });
       favourite.save();
       res.status(201).json(favourite);
+      console.log('message added')
     } catch (error) {
       console.error('Error adding favourite:  ', error);
       res.status(400).json({message: 'Error adding favourite:  ', error})
