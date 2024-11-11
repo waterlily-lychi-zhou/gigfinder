@@ -34,40 +34,10 @@ function EventMap ({events, radius, location}) {
       new mapboxgl.Marker()
         .setLngLat([longitude, latitude])
         .setPopup(
-          new mapboxgl.Popup().setHTML(`<h3>${event.name}</h3><p>${event._embedded.venues[0].name}</p>`)
+          new mapboxgl.Popup().setHTML(`<h3>${event.name}</h3><p>${event._embedded.venues[0].name}</p><p>${event.dates.start.localDate}</p><p>${event.dates.start.localTime}</p>`)
         )
         .addTo(map);
     });
-
-  //  // add circle to show the search radius
-  //   map.on('load', () => {
-  //     map.addSource('radius-circle', {
-  //       paint: {
-  //         'circle-radius': radius * 100,
-  //         'circle-color': 'rgba(0, 123, 255, 0.5)',
-  //         'circle-stroke-width': 2,
-  //         'circle-stroke-color': 'rgba(0, 123, 255, 0.5)'
-  //       }
-  //     })
-  //   })
-  //     map.on('load', () => {
-  //       map.addSource('radius-circle', {
-  //         type: 'geojson',
-  //         data: {
-  //           type: 'Feature',
-  //           geometry: {
-  //             type: 'point',
-  //             coordinates: [location.longitude, location.latitude],
-  //             paint: {
-  //               "circle-radius": radius * 100, 
-  //               "circle-color": "rgba(0, 123, 255, 0.3)",
-  //               "circle-stroke-width": 2,
-  //               "circle-stroke-color": "rgba(0, 123, 255, 0.5)",
-  //             },
-  //           }
-  //         }
-  //       })
-  //     })
 
     //cleanup on unmount
     return () => map.remove();

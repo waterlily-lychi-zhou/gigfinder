@@ -17,17 +17,15 @@ const controllers = {
       
       const data = await response.json();
       
+      // if no events, set to empty array 
       const events = data._embedded ? data._embedded.events : [];
 
-      console.log(events.length);
-
+      // for some reason the API returned some past events so these are filtred out here
       const today = new Date();
       const futureEvents = events.filter(event => {
         const eventDate = new Date(event.dates.start.dateTime);
         return eventDate >= today;
       })
-
-      console.log(futureEvents.length);
 
       res.status(200).json({ futureEvents });
     } catch (error) {

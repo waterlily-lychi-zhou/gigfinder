@@ -5,14 +5,17 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { EventList } from "../../components/event-list/event-list";
 import { FavouritesContext } from "../../context/favourites-context";
 import EventMap from "../../components/event-map/event-map";
-// events map import 
+import { FavouritesList } from "../../components/favourites-list/favourites-list";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/navbar/navbar";
 
 function EventsListPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const { location } = useContext(LocationContext);
-  const { favourites, addToFavourites, deleteFromFavourites } = useContext(FavouritesContext)
-  const [searchRadius, setSearchRadius] = useState(20);
+  const { favourites  } = useContext(FavouritesContext)
+  const navigate = useNavigate();
+  const [searchRadius, setSearchRadius] = useState(20); // could use later to alter search radius 
 
   //fetch events from backend
   useEffect(() => {
@@ -22,7 +25,6 @@ function EventsListPage() {
         const response = await fetch(`http://localhost:3001/api/events?lat=${location.latitude}&long=${location.longitude}`);
         const data = await response.json();
         console.log(data);
-        console.log(data.futureEvents)
         setEvents(data.futureEvents);
         
       } catch (error) {
@@ -37,8 +39,8 @@ function EventsListPage() {
 
 
   return (
-    // NAVBAR
     <div className="events-list-page">
+      <Navbar />
       {loading ? (
         <ScaleLoader />
       ) : (
@@ -47,20 +49,13 @@ function EventsListPage() {
             <h1>UPCOMING EVENTS NEAR YOU</h1>
             <EventList events={events}/>
           </div>
-          {favourites.length > 0 ? 
-          <div className="favourite-events">
-            <h1>YOUR FAVOURITE EVENTS</h1>
-            {/* <EventList events={favourites}/>  */}
-          </div>
-          : <div></div>
-        }
+        <EventMap
+          events={events}
+          radius={searchRadius}
+          location={location}
+          />
         </div>
       )}
-      <EventMap
-        events={events}
-        radius={searchRadius}
-        location={location}
-         />
     </div>
   );
 }

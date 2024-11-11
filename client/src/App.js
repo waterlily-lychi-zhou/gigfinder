@@ -13,8 +13,8 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage/>} />
           <Route path='/events' element={<EventsListPage/>} />
-          {/* <Route path='/favourites' element={<FavouritesPage/>} />
-          <Route path='/reviews' element={<ReviewPage/>} /> */}
+          <Route path='/favourites' element={<FavouritesPage/>} />
+          {/* <Route path='/reviews' element={<ReviewPage/>} /> */}
         </Routes>
       </div>
 

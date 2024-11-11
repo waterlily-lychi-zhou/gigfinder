@@ -6,14 +6,12 @@
   overflow: hidden;
   width: 300px;
   height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   transition: transform 0.3s;
 }
 
 .event-card:hover {
-  transform: scale(1.05); 
+  transform: scale(1.1);
+  overflow-x: visible;
 }
 
 .event-image {
@@ -23,43 +21,30 @@
 }
 
 .event-details {
-  flex: 1;
   padding: 15px;
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .event-name {
-  font-size: 1rem;
-  margin: 0 0 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 1.5rem;
+  margin: 0 0 10px;
 }
 
 .event-date,
-.event-time,
 .event-venue {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #555;
-  margin: 0 0 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  margin: 0 0 10px;
 }
 
-.add-to-favourites,
-.remove-from-favourites {
+.add-to-favourites {
   background-color: #ff4b2b;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  align-self: flex-start; /* Align buttons to the start */
 }
 
 .add-to-favourites:hover {
@@ -68,6 +53,12 @@
 
 .remove-from-favourites {
   background-color: #1207f1;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .remove-from-favourites:hover {
