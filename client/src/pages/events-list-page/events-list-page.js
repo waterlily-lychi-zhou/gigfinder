@@ -46,7 +46,7 @@ function EventsListPage() {
       ) : (
         <div>
           <div className="upcoming-events"> 
-            <h1>UPCOMING EVENTS NEAR YOU</h1>
+            <h2>UPCOMING EVENTS NEAR YOU</h2>
             <EventList events={events}/>
           </div>
         <EventMap

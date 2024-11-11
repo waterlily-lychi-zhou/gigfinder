@@ -30,8 +30,8 @@ function LandingPage() {
   return (
     <div className="landing-page">
       <div className="hero-section">
-        <div className="logo"> GIGFINDER LOGO</div>
-        <div className="tagline">Click to find events near you</div>
+        <img src="gigfinder-logo.png" className="gigfinder-logo" alt="gigfinder-logo"/>
+        <div className="tagline">CLICK TO FIND EVENTS NEAR YOU</div>
         <button className="find-events-button" onClick={handleFindEvents}>
           FIND
         </button>

@@ -1,5 +1,7 @@
 .map-container {
   width: 60%;
   height: 500px;
-  margin: 0% 5%;
+  margin: 2rem 2rem 0rem 2rem;
+  display: flex;
+  justify-content: center;
 }

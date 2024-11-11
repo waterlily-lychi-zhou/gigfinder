@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import './favourites-page.css';
+import '../events-list-page/events-list-page.css';
 import { FavouritesContext } from "../../context/favourites-context";
 import Navbar from "../../components/navbar/navbar";
 // import EventMap from "../../components/event-map/event-map";
@@ -11,12 +11,12 @@ function FavouritesPage() {
 
 
   return (
-    <div className="favourites-page">
+    <div className="page">
       <Navbar />
         <div>
           {favourites.length > 0 ? 
           <div className="favourite-events">
-            <h1>YOUR FAVOURITE EVENTS</h1>
+            <h2>YOUR FAVOURITE EVENTS</h2>
             <FavouritesList events={favourites}/> 
           </div>
           : <div>No favourites added yet.. </div>

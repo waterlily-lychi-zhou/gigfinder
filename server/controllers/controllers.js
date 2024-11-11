@@ -38,6 +38,7 @@ const controllers = {
     try {
       const favourites = await Favourite.find();
       res.status(200).json(favourites);
+      console.log('deleted')
     } catch (error) {
       console.error('Error fetching favourites from database:  ', error);
       res.status(500).json({message: 'Error getting favourites:  ', error})

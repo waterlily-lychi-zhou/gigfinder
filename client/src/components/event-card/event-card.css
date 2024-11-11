@@ -1,19 +1,20 @@
 .event-card {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #252525;
+  border: none; 
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
   overflow: hidden;
   width: 300px;
-  height: 400px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .event-card:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7); 
 }
 
 .event-image {
@@ -24,52 +25,69 @@
 
 .event-details {
   flex: 1;
-  padding: 15px;
+  padding: 20px;
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #1b1b1b; 
+  border-top: 1px solid #333; 
+}
+
+.event-details h3 {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-weight: bold; 
+  text-transform: uppercase;
 }
 
 .event-name {
-  font-size: 1rem;
-  margin: 0 0 5px;
+  margin: 0;
+  color: #ffffff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .event-date,
 .event-time,
 .event-venue {
-  font-size: 0.9rem;
-  color: #555;
-  margin: 0 0 5px;
+  font-size: 0.95rem;
+  color: #cccccc; 
+  margin: 4px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .add-to-favourites,
-.remove-from-favourites {
-  background-color: #ff4b2b;
-  color: white;
+.remove-from-favourites,
+.more-info {
+  background-color: rgb(236, 0, 178); 
+  color: #ffffff;
   border: none;
-  padding: 10px;
+  padding: 8px 14px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  align-self: flex-start; /* Align buttons to the start */
+  transition: background-color 0.3s, transform 0.2s;
+  align-self: flex-start;
+  font-weight: 500;
 }
 
-.add-to-favourites:hover {
-  background-color: #ff2a1a;
-}
-
-.remove-from-favourites {
-  background-color: #1207f1;
-}
-
+.add-to-favourites:hover,
 .remove-from-favourites:hover {
-  background-color: #4400fd;
+  background-color: #b800a6; 
+  transform: translateY(-2px); 
+}
+
+.more-info {
+  background-color: #333333; 
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.more-info:hover {
+  background-color: #444444; 
 }

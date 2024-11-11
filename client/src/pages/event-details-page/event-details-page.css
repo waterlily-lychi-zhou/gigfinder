@@ -1,0 +1,54 @@
+.page {
+  background: url('../../../public/gigfinder-back.jpg') no-repeat center center/cover;
+  height: 100vh; 
+}
+
+.event-details-page {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-name {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.event-details-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.event-description {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.event-date,
+.event-time,
+.event-venue,
+.venue-address {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.tickets-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #ff4b2b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.tickets-link:hover {
+  background-color: #ff2a1a;
+}

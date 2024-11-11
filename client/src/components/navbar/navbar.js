@@ -6,16 +6,16 @@ import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <div className="navbar">
-      <div className="logo">GIGFINDER</div>
+      <img src="/gigfinder-logo.png" alt="gigfinder-logo" className="navbar-logo"/>
       <ul className="navbar-links">
         <li>
-          <NavLink to="/events" className="nav-link" activeClassName="active">Home</NavLink>
+          <NavLink to="/events" className="nav-link">Home</NavLink>
         </li>
         <li>
-          <NavLink to="/favourites" className="nav-link" activeClassName="active">Favourites</NavLink>
+          <NavLink to="/favourites" className="nav-link">Favourites</NavLink>
         </li>
         <li>
-          <NavLink to="/reviews" className="nav-link" activeClassName="active">Reviews</NavLink>
+          <NavLink to="/reviews" className="nav-link">Reviews</NavLink>
         </li>
       </ul>
     </div>

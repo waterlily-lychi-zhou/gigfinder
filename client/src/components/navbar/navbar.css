@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.navbar-logo {
+  height: 40px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.nav-link {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: rgb(236, 0, 178);
+  font-weight: 600;
+}

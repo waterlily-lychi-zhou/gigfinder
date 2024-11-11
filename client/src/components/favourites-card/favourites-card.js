@@ -1,17 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
-import './favourites-card.css';
+import React, { useContext, useEffect } from "react";
+import '../event-card/event-card.css';
 import { FavouritesContext } from "../../context/favourites-context";
+import { useNavigate } from "react-router-dom";
 
 function FavouritesCard( {event}) {
-  const { favourites, addToFavourites, deleteFromFavourites } = useContext(FavouritesContext);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const { favourites, deleteFromFavourites } = useContext(FavouritesContext);
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    console.log(favourites)
-    if (favourites.some(fav => fav.eventDetails.eventId === event.id)) setIsFavourite(true);
-    else setIsFavourite(false);
-  }, [favourites, event.id])
+  useEffect(()=> {}, [favourites, event.eventDetails.id])
 
+  function handleMoreInfo(event) {
+    console.log(event);
+    navigate(`/event-details/`, { state : { event } })
+  }
+
+  
   return (
     <div className="event-card">
     <img src={event.eventDetails.images[0].url} alt={event.name} className="event-image" />
@@ -20,10 +23,8 @@ function FavouritesCard( {event}) {
       <p className="event-date">{event.eventDetails.dates.start.localDate}</p>
       <p className="event-time">{event.eventDetails.dates.start.localTime}</p>
       <p className="event-venue">{event.eventDetails.venue}</p>
-      {isFavourite ? 
-        <button className="remove-from-favourites" onClick={()=> deleteFromFavourites(event.id)}>Remove from Favourites</button>
-        :
-        <button className="add-to-favourites" onClick={()=> addToFavourites(event)}>Add to Favourites</button>}
+        <button className="remove-from-favourites" onClick={()=> deleteFromFavourites(event.eventId)}>Remove from Favourites</button>
+        <button className="more-info" onClick={()=> handleMoreInfo(event.eventDetails)} >More Info</button>
     </div>
   </div>
   )

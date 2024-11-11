@@ -1,0 +1,10 @@
+.events-list-page {
+  background: url('../../../public/gigfinder-back.jpg') no-repeat center center/cover;
+  padding-bottom: 20px;
+}
+
+.events-list-page h2 {
+  color: white;
+  margin-top: 3rem;
+  margin-left: 30px;
+}
