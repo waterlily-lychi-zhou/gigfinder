@@ -12,6 +12,11 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
 }
 
+.img-map-container {
+  display: flex;
+  justify-content: space-around;
+}
+
 .event-details-name {
   font-size: 2rem;
   margin-bottom: 10px;
@@ -20,7 +25,7 @@
 
 .event-details-image {
   width: 40%;
-  height: 30%;
+  height: 400px;
   object-fit: cover;
   margin-bottom: 20px;
   border-radius: 8px;

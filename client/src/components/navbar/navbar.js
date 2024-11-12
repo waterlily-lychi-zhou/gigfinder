@@ -14,9 +14,6 @@ function Navbar() {
         <li>
           <NavLink to="/favourites" className="nav-link">Favourites</NavLink>
         </li>
-        <li>
-          <NavLink to="/reviews" className="nav-link">Reviews</NavLink>
-        </li>
       </ul>
     </div>
   );
