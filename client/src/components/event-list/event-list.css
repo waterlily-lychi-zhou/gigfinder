@@ -1,6 +1,8 @@
 .events-list-container {
   display: flex;
-  overflow-x: visible;
+  overflow-x: auto;
+  overflow-y: visible;
+  white-space: nowrap;
   gap: 16px;
   justify-content: flex-start;
   margin: 1rem 2rem;
@@ -11,4 +13,6 @@
   flex-shrink: 0;
   width: 300px;
   height: 400px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  will-change: transform;
 }

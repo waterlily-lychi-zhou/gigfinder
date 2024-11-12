@@ -19,7 +19,7 @@ function FavouritesPage() {
             <h2>YOUR FAVOURITE EVENTS</h2>
             <FavouritesList events={favourites}/> 
           </div>
-          : <div>No favourites added yet.. </div>
+          : <h2>No favourites added yet.. </h2>
         }
 
         </div>

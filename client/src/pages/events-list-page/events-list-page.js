@@ -5,17 +5,21 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { EventList } from "../../components/event-list/event-list";
 import { FavouritesContext } from "../../context/favourites-context";
 import EventMap from "../../components/event-map/event-map";
-import { FavouritesList } from "../../components/favourites-list/favourites-list";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "#b800a6",
+};
 
 function EventsListPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const { location } = useContext(LocationContext);
-  const { favourites  } = useContext(FavouritesContext)
-  const navigate = useNavigate();
   const [searchRadius, setSearchRadius] = useState(20); // could use later to alter search radius 
+  const color = "#b800a6"
 
   //fetch events from backend
   useEffect(() => {
@@ -42,7 +46,13 @@ function EventsListPage() {
     <div className="events-list-page">
       <Navbar />
       {loading ? (
-        <ScaleLoader />
+        <ScaleLoader
+          color={color}
+          loading={loading}
+          cssOverride={override}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader" />
       ) : (
         <div>
           <div className="upcoming-events"> 

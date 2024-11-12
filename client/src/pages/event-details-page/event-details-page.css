@@ -5,21 +5,22 @@
 
 .event-details-page {
   max-width: 80%;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #252525;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
 }
 
-.event-name {
+.event-details-name {
   font-size: 2rem;
   margin-bottom: 10px;
+  color: #ffffff;
 }
 
 .event-details-image {
-  width: 100%;
-  height: 400px;
+  width: 40%;
+  height: 30%;
   object-fit: cover;
   margin-bottom: 20px;
   border-radius: 8px;
@@ -30,19 +31,20 @@
   margin-bottom: 10px;
 }
 
-.event-date,
-.event-time,
-.event-venue,
-.venue-address {
+.event-details-date,
+.event-details-time,
+.event-details-venue,
+.event-details-venue-address {
   font-size: 1rem;
   margin-bottom: 5px;
+  color: #ffffff;
 }
 
 .tickets-link {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 15px;
-  background-color: #ff4b2b;
+  background-color: rgb(236, 0, 178); 
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -50,5 +52,5 @@
 }
 
 .tickets-link:hover {
-  background-color: #ff2a1a;
+  background-color: #b800a6; 
 }

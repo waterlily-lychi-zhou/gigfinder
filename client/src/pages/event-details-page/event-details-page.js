@@ -13,12 +13,12 @@ function EventDetailsPage() {
     <div className="page">
       <Navbar />
       <div className="event-details-page">
-        <h1 className="event-name">{event.name}</h1>
-        <img src={event.images[0].url} alt={event.name} className="event-detials-image" />
-        <p className="event-date">Date: {event.dates.start.localDate}</p>
-        <p className="event-time">Time: {event.dates.start.localTime}</p>
-        <p className="event-venue">Venue: {event._embedded.venues[0].name}</p>
-        <p className="venue-address">
+        <h1 className="event-details-name">{event.name}</h1>
+        <img src={event.images[0].url} alt={event.name} className="event-details-image" />
+        <p className="event-details-date">Date: {event.dates.start.localDate}</p>
+        <p className="event-details-time">Time: {event.dates.start.localTime}</p>
+        <p className="event-details-venue">Venue: {event._embedded.venues[0].name}</p>
+        <p className="event-details-venue-address">
           Address: {event._embedded.venues[0].address.line1}, {event._embedded.venues[0].city.name}, {event._embedded.venues[0].country.name}
         </p>
         <a href={event.url} target="_blank" rel="noopener noreferrer" className="tickets-link">
