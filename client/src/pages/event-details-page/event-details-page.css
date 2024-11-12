@@ -40,17 +40,22 @@
   color: #ffffff;
 }
 
+.add-to-calendar,
 .tickets-link {
   display: inline-block;
-  margin-top: 20px;
+  margin: 20px 5px 5px 5px;
   padding: 10px 15px;
   background-color: rgb(236, 0, 178); 
   color: white;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
 }
 
+.add-to-calendar:hover,
 .tickets-link:hover {
   background-color: #b800a6; 
 }

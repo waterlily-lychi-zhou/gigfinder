@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import './event-details-page.css';
 import Navbar from "../../components/navbar/navbar";
+import { generateICSFile } from "../../utils/calendar";
 
 function EventDetailsPage() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function EventDetailsPage() {
         <a href={event.url} target="_blank" rel="noopener noreferrer" className="tickets-link">
           Buy Tickets
         </a>
+        <button className="add-to-calendar" onClick={()=> generateICSFile(event)}>Add to Calendar</button>
       </div>
     </div>
   );
