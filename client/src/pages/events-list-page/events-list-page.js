@@ -19,7 +19,7 @@ function EventsListPage() {
   const [loading, setLoading] = useState(true);
   const { location } = useContext(LocationContext);
   const [searchRadius, setSearchRadius] = useState(20); // could use later to alter search radius 
-  const color = "#b800a6"
+  const color = "#b800a6";
 
   //fetch events from backend
   useEffect(() => {
@@ -40,17 +40,16 @@ function EventsListPage() {
     if (location.latitude && location.longitude) fetchEvents();
   }, [location]);
 
-
-
+  // TODO: move ScaleLoader styles to CSS.
   return (
     <div className="events-list-page">
       <Navbar />
       {loading ? (
         <ScaleLoader
           color={color}
-          loading={loading}
           cssOverride={override}
           size={150}
+          loading={loading}
           aria-label="Loading Spinner"
           data-testid="loader" />
       ) : (

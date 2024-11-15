@@ -1,7 +1,6 @@
 const Favourite = require('../models/favourite')
 require('dotenv').config();
 
-
 const controllers = {
   
   // event controller
@@ -9,11 +8,18 @@ const controllers = {
   getEvents: async function(req, res) {
     try {
       const { lat, long } = req.query;
+      console.log(req.query);
       const apiKey = process.env.TICKETMASTER_API_KEY;
+      console.log("Ticketmaster API Key:", process.env.TICKETMASTER_API_KEY);
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&latlong=${lat},${long}&radius=20&unit=miles&sort=date,asc&classificationName=Music`;
-
+      console.log(url);
       const response = await fetch(url);
-      if(!response.ok) return res.status(400).send('Failed to fetch events')
+      
+      if(!response.ok) {
+        const errorText = await response.text();
+        console.error("Ticketmaster API Error:", response.status, errorText);
+        return res.status(400).send(`Failed to fetch events: ${response.status}`);
+      }
       
       const data = await response.json();
       
