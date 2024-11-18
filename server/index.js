@@ -1,24 +1,24 @@
-const express = require('express')
 const mongoose = require('mongoose');
-const cors = require('cors');
-const routes = require('./routes')
+const app = require('./app');
+require('dotenv').config();
 
-
-const app = express()
 const PORT = process.env.PORT || 3001;
 
-//middleware
-app.use(cors());
-app.use(express.json());
-
 //connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/gigfinder')
-  .then(() => console.log('successfully connected to database'))
-  .catch((error) => console.error('error connecting to database:  ', error));
+if (process.env.NODE_ENV !== 'test') {
+  mongoose
+    .connect('mongodb://localhost:27017/gigfinder', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log('Successfully connected to database'))
+    .catch((err) => console.error('Database connection error:', err));
+}
 
-//use routes   
-app.use('/api', routes);  
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+if (require.main === module) {
+  const PORT = 3001;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}

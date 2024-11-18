@@ -8,11 +8,11 @@ const controllers = {
   getEvents: async function(req, res) {
     try {
       const { lat, long } = req.query;
-      console.log(req.query);
+      /* console.log(req.query); */
       const apiKey = process.env.TICKETMASTER_API_KEY;
-      console.log("Ticketmaster API Key:", process.env.TICKETMASTER_API_KEY);
+      /* console.log("Ticketmaster API Key:", process.env.TICKETMASTER_API_KEY); */
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&latlong=${lat},${long}&radius=20&unit=miles&sort=date,asc&classificationName=Music`;
-      console.log(url);
+      /* console.log(url) */;
       const response = await fetch(url);
       
       if(!response.ok) {
@@ -44,7 +44,7 @@ const controllers = {
     try {
       const favourites = await Favourite.find();
       res.status(200).json(favourites);
-      console.log('deleted')
+      /* console.log('deleted') */
     } catch (error) {
       console.error('Error fetching favourites from database:  ', error);
       res.status(500).json({message: 'Error getting favourites:  ', error})
@@ -55,13 +55,22 @@ const controllers = {
     try {
       const { eventId, eventDetails } = req.body;
       const favourite = new Favourite({ eventId, eventDetails });
-      favourite.save();
+      await favourite.save();
       res.status(201).json(favourite);
-      console.log('message added')
+      // console.log('message added')
     } catch (error) {
       console.error('Error adding favourite:  ', error);
-      res.status(400).json({message: 'Error adding favourite:  ', error})
+
+      if (error.name === 'ValidationError') {
+        return res.status(400).json({ message: 'Validation failed', error: error.errors });
+      }
+
+      res.status(500).json({message: 'Internal server error:  ', error})
     }
+
+    // Check if the error is a Mongoose validation error
+
+
   },
 
   deleteFromFavourites: async function(req, res) {
