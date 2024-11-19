@@ -12,10 +12,10 @@ if (process.env.NODE_ENV !== 'test') {
       useUnifiedTopology: true,
     })
     .then(() => console.log('Successfully connected to database'))
-    .catch((err) => console.error('Database connection error:', err));
+    .catch((err: Error) => console.error('Database connection error:', err));
 }
 
-
+// Start server
 if (require.main === module) {
   const PORT = 3001;
   app.listen(PORT, () => {
