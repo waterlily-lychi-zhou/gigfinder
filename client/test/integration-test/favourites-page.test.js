@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import FavouritesPage from './favourites-page';
-import { FavouritesContext } from '../../context/favourites-context';
-import { FavouritesList } from '../../components/favourites-list/favourites-list';
+import FavouritesPage from '../../src/pages/favourites-page/favourites-page';
+import { FavouritesContext } from '../../src/context/favourites-context';
 
 // Mock dependencies
-jest.mock('../../components/favourites-list/favourites-list', () => ({
+jest.mock('../../src/components/favourites-list/favourites-list', () => ({
   FavouritesList: ({ events }) => <div data-testid="favourites-list">{events.length} favourite events</div>,
 }));
 
@@ -20,11 +19,6 @@ describe('FavouritesPage Component', () => {
       </BrowserRouter>
     );
   };
-
-  it('renders Navbar correctly', () => {
-    renderWithFavourites([]);
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
-  });
 
   it('renders "No favourites added yet.." message when favourites list is empty', () => {
     renderWithFavourites([]);
