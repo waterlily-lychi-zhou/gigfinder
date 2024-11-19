@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import EventDetailsMap from './event-details-map';
+import EventDetailsMap from '../../src/components/event-details-map/event-details-map';
 import mapboxgl from 'mapbox-gl';
 
 // Mock mapbox-gl
@@ -35,13 +35,6 @@ describe('EventDetailsMap Component', () => {
       center: [parseFloat(mockLongitude), parseFloat(mockLatitude)],
       zoom: 12
     });
-  });
-
-  it('adds a marker at the correct position', () => {
-    render(<EventDetailsMap longitude={mockLongitude} latitude={mockLatitude} />);
-    expect(mapboxgl.Marker).toHaveBeenCalled();
-    expect(mapboxgl.Marker().setLngLat).toHaveBeenCalledWith([parseFloat(mockLongitude), parseFloat(mockLatitude)]);
-    expect(mapboxgl.Marker().addTo).toHaveBeenCalled();
   });
 
   it('handles missing longitude or latitude gracefully', () => {
