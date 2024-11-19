@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { EventList } from './event-list';
-import EventCard from '../event-card/event-card';
+import { EventList } from '../../src/components/event-list/event-list';
 
 // Mock the EventCard component to simplify testing
-jest.mock('../event-card/event-card', () => ({ event }) => <div data-testid="event-card">{event.name}</div>);
+jest.mock('../../src/components/event-card/event-card', () => ({ event }) => <div data-testid="event-card">{event.name}</div>);
 
 describe('EventList Component', () => {
   const mockEvents = [
