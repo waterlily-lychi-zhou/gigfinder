@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { LocationContext } from '../../context/location-context';
-import LandingPage from './landing-page';
+import { LocationContext } from '../../src/context/location-context';
+import LandingPage from '../../src/pages/landing-page/landing-page';
 
 describe('LandingPage Component', () => {
   const mockSetLocation = jest.fn();
