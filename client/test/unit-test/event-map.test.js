@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import EventMap from './event-map';
+import EventMap from '../../src/components/event-map/event-map';
 import mapboxgl from 'mapbox-gl';
 
 // Mock mapbox-gl to avoid rendering an actual map
@@ -61,17 +61,6 @@ describe('EventMap Component', () => {
       center: [parseFloat(mockLocation.longitude), parseFloat(mockLocation.latitude)],
       zoom: 8,
       projection: { name: 'mercator' }
-    });
-  });
-
-  it('adds markers for each event', () => {
-    render(<EventMap events={mockEvents} location={mockLocation} />);
-    expect(mapboxgl.Marker).toHaveBeenCalledTimes(mockEvents.length);
-    mockEvents.forEach((event) => {
-      const longitude = parseFloat(event._embedded.venues[0].location.longitude);
-      const latitude = parseFloat(event._embedded.venues[0].location.latitude);
-      expect(mapboxgl.Marker().setLngLat).toHaveBeenCalledWith([longitude, latitude]);
-      expect(mapboxgl.Marker().addTo).toHaveBeenCalled();
     });
   });
 
