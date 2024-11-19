@@ -1,9 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { FavouritesList } from './favourites-list';
-import FavouritesCard from '../favourites-card/favourites-card';
+import { FavouritesList } from '../../src/components/favourites-list/favourites-list';
 
-jest.mock('../favourites-card/favourites-card', () => ({ event }) => <div data-testid="favourites-card">{event.eventDetails.name}</div>);
+jest.mock('../../src/components/favourites-card/favourites-card', () => ({ event }) => <div data-testid="favourites-card">{event.eventDetails.name}</div>);
 
 describe('FavouritesList Component', () => {
   const mockEvents = [
