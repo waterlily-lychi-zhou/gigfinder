@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './navbar';
+import Navbar from '../../src/components/navbar/navbar';
 
 describe('Navbar Component', () => {
   it('renders the logo correctly', () => {
