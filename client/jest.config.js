@@ -1,6 +1,6 @@
 module.exports = {
     transform: {
-      "^.+\\.(js|jsx)$": "babel-jest"
+      "^.+\\.[tj]sx?$": "babel-jest"
     },
     moduleNameMapper: {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy" // Mock CSS imports

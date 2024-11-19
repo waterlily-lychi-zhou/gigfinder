@@ -38,9 +38,12 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
     "@testing-library/jest-dom": "^6.6.3",
     "babel-jest": "^29.7.0",
     "jest": "^27.5.1",
-    "react-test-renderer": "^18.3.1"
+    "react-test-renderer": "^18.3.1",
+    "text-encoding": "^0.7.0",
+    "util": "^0.12.5"
   }
 }
