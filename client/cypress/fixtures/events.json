@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "name": "Music Festival",
+      "location": "Central Park",
+      "latitude": 40.785091,
+      "longitude": -73.968285
+    },
+    {
+      "id": 2,
+      "name": "Art Exhibition",
+      "location": "Art Gallery",
+      "latitude": 40.761432,
+      "longitude": -73.977622
+    }
+  ]
+  
