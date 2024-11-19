@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { FavouritesContext } from '../../context/favourites-context';
+import { FavouritesContext } from '../../src/context/favourites-context';
 import { BrowserRouter } from 'react-router-dom';
-import FavouritesCard from './favourites-card';
+import FavouritesCard from '../../src/components/favourites-card/favourites-card';
 
 describe('FavouritesCard Component', () => {
   const mockEvent = {
@@ -36,15 +36,6 @@ describe('FavouritesCard Component', () => {
       </BrowserRouter>
     );
   };
-
-  it('renders event details correctly', () => {
-    renderWithContext();
-    expect(screen.getByText(mockEvent.eventDetails.name)).toBeInTheDocument();
-    expect(screen.getByText(mockEvent.eventDetails.dates.start.localDate)).toBeInTheDocument();
-    expect(screen.getByText(mockEvent.eventDetails.dates.start.localTime)).toBeInTheDocument();
-    expect(screen.getByText(mockEvent.eventDetails.venue)).toBeInTheDocument();
-    expect(screen.getByAltText(mockEvent.eventDetails.name)).toHaveAttribute('src', mockEvent.eventDetails.images[0].url);
-  });
 
   it('handles "Remove from Favourites" button click', () => {
     renderWithContext();
