@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { FavouritesContext } from '../../context/favourites-context';
+import { FavouritesContext } from '../../src/context/favourites-context';
 import { BrowserRouter } from 'react-router-dom';
-import EventCard from './event-card';
+import EventCard from '../../src/components/event-card/event-card';
+import '@testing-library/jest-dom';
 
 describe('EventCard Component', () => {
   const mockEvent = {

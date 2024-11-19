@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import { FavouritesList } from './favourites-list';
 import FavouritesCard from '../favourites-card/favourites-card';
 
-// Mock the FavouritesCard component to simplify testing
 jest.mock('../favourites-card/favourites-card', () => ({ event }) => <div data-testid="favourites-card">{event.eventDetails.name}</div>);
 
 describe('FavouritesList Component', () => {

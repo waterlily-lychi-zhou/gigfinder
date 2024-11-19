@@ -45,7 +45,7 @@ describe('EventDetailsMap Component', () => {
   });
 
   it('handles missing longitude or latitude gracefully', () => {
-    console.error = jest.fn(); // Mock console.error
+    console.error = jest.fn();
     render(<EventDetailsMap longitude={null} latitude={null} />);
     expect(console.error).toHaveBeenCalledWith('map input error');
   });

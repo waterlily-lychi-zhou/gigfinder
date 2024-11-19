@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import './event-card.css';
+// import './event-card.css';
 import { FavouritesContext } from "../../context/favourites-context";
 import { useNavigate } from "react-router-dom";
 
