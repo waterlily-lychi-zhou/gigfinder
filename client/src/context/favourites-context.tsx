@@ -24,7 +24,7 @@ interface FavouriteEvent {
   eventDetails: EventDetails;
 }
 
-interface FavouritesContextType {
+export interface FavouritesContextType {
   favourites: FavouriteEvent[];
   addToFavourites: (event: EventDetails) => Promise<void>;
   deleteFromFavourites: (eventId: string) => Promise<void>;

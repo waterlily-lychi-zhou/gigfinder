@@ -5,9 +5,9 @@ interface Location {
   longitude: number | null;
 }
 
-interface LocationContextType {
-  location: Location;
-  setLocation: React.Dispatch<React.SetStateAction<Location>>;
+export interface LocationContextType {
+  location: { latitude: number | null; longitude: number | null };
+  setLocation: (location: { latitude: number; longitude: number }) => void;
 }
 
 export const LocationContext = createContext<LocationContextType | null>(null);

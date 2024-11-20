@@ -40,7 +40,7 @@ const EventsListPage: React.FC = () => {
   const { location } = useContext(LocationContext) as {
     location: { latitude: number; longitude: number };
   };
-  const [searchRadius, setSearchRadius] = useState(20); // For altering search radius
+  const [searchRadius, setSearchRadius] = useState(20);
   const color = "#b800a6";
 
   useEffect(() => {
@@ -99,7 +99,14 @@ const EventsListPage: React.FC = () => {
             <h2>UPCOMING EVENTS NEAR YOU</h2>
             <EventList events={events} />
           </div>
-          <EventMap events={events} radius={searchRadius} location={location} />
+          <EventMap
+            events={events}
+            radius={searchRadius}
+            location={{
+              latitude: location.latitude.toString(),
+              longitude: location.longitude.toString(),
+            }}
+          />
         </div>
       )}
     </div>

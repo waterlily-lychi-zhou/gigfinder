@@ -4,7 +4,8 @@ import { MemoryRouter } from "react-router-dom";
 import EventDetailsPage from "../../src/pages/event-details-page/event-details-page";
 import { generateICSFile } from "../../src/utils/calendar";
 
-jest.mock('mapbox-gl', () => ({
+// Mock Mapbox
+jest.mock("mapbox-gl", () => ({
   Map: jest.fn(() => ({
     on: jest.fn(),
     remove: jest.fn(),
@@ -15,11 +16,30 @@ jest.mock('mapbox-gl', () => ({
   })),
 }));
 
+// Mock generateICSFile
 jest.mock("../../src/utils/calendar", () => ({
   generateICSFile: jest.fn(),
 }));
 
-const mockEvent = {
+// Define mockEvent type
+interface EventVenue {
+  name: string;
+  address: { line1: string };
+  city: { name: string };
+  country: { name: string };
+  location: { longitude: string; latitude: string };
+}
+
+interface EventDetails {
+  name: string;
+  dates: { start: { localDate: string; localTime: string } };
+  images: { url: string }[];
+  _embedded: { venues: EventVenue[] };
+  url: string;
+}
+
+// Mock Event data
+const mockEvent: EventDetails = {
   name: "Sample Event",
   dates: { start: { localDate: "2024-12-01", localTime: "19:00" } },
   images: [{ url: "sample-image.jpg" }],
@@ -37,14 +57,18 @@ const mockEvent = {
   url: "https://example.com",
 };
 
-const renderWithRouter = (state) => {
+// Helper function to render with router
+const renderWithRouter = (state: EventDetails | null) => {
   render(
-    <MemoryRouter initialEntries={[{ state: state ? { event: state } : null }]}>
+    <MemoryRouter
+      initialEntries={[{ state: state ? { event: state } : undefined }]}
+    >
       <EventDetailsPage />
     </MemoryRouter>
   );
 };
 
+// Tests
 describe("EventDetailsPage Component", () => {
   it("renders event details correctly", () => {
     renderWithRouter(mockEvent);
@@ -53,7 +77,9 @@ describe("EventDetailsPage Component", () => {
     expect(screen.getByText("Date: 2024-12-01")).toBeInTheDocument();
     expect(screen.getByText("Time: 19:00")).toBeInTheDocument();
     expect(screen.getByText(/Sample Venue/i)).toBeInTheDocument();
-    expect(screen.getByText(/Address: 123 Street, Sample City, Sample Country/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Address: 123 Street, Sample City, Sample Country/i)
+    ).toBeInTheDocument();
   });
 
   it("calls generateICSFile when 'Add to Calendar' button is clicked", () => {
@@ -65,4 +91,3 @@ describe("EventDetailsPage Component", () => {
     expect(generateICSFile).toHaveBeenCalledWith(mockEvent);
   });
 });
-

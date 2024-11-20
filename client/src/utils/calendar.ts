@@ -5,7 +5,8 @@ interface Event {
   description?: string;
   dates: {
     start: {
-      dateTime: string;
+      localDate: string;
+      localTime: string;
     };
   };
   url: string;
@@ -28,8 +29,8 @@ export function generateICSFile(event: Event): void {
   const calendar = ical({ name: 'GigFinder Events' });
 
   const eventDetails: ICalEventData = {
-    start: new Date(event.dates.start.dateTime),
-    end: new Date(new Date(event.dates.start.dateTime).getTime() + 2 * 60 * 60 * 1000), // Add 2 hours to start time
+    start: new Date(event.dates.start.localTime),
+    end: new Date(new Date(event.dates.start.localTime).getTime() + 2 * 60 * 60 * 1000), // Add 2 hours to start time
     summary: event.name,
     description: event.description || 'Event at GigFinder',
     location: `${event._embedded.venues[0].address.line1}, ${event._embedded.venues[0].city.name}, ${event._embedded.venues[0].country.name}`,

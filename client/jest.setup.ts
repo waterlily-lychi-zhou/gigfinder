@@ -10,4 +10,3 @@ if (typeof global.TextDecoder === 'undefined') {
 if (typeof global.TextEncoder === 'undefined') {
   global.TextEncoder = require('util').TextEncoder;
 }
-
