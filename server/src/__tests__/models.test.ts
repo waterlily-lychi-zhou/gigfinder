@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import Favourite, { iFav } from '../models/favourite';
+import Favourite, { IFav } from '../models/favourite';
 
 let mongoServer: MongoMemoryServer;
 
@@ -18,7 +18,7 @@ afterAll(async () => {
 
 describe('Favourite Model - Schema Validation', () => {
   it('should save a valid favourite', async () => {
-    const validFavourite: iFav = new Favourite({
+    const validFavourite: IFav = new Favourite({
       eventId:'TestEvent123',
       eventDetails: {
         name: 'Test Event',
