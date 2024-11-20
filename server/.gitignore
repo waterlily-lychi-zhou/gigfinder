@@ -1,0 +1,15 @@
+# Node.js
+/node_modules
+/server/node_modules
+
+# Ignore macOS system files
+.DS_Store
+../.DS_Store
+
+# Ignore package-lock.json
+package-lock.json
+../package-lock.json
+package.json
+
+# Ignore build files
+dist/
