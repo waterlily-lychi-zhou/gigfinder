@@ -1,0 +1,12 @@
+[
+    {
+      "id": 1,
+      "name": "Music Festival",
+      "location": "Central Park"
+    },
+    {
+      "id": 2,
+      "name": "Art Exhibition",
+      "location": "Art Gallery"
+    }
+  ]
