@@ -7,8 +7,8 @@ mapboxgl.accessToken =
   "pk.eyJ1Ijoic3RlZmFuYnV0bGVyIiwiYSI6ImNtMzdmcncwMjBmamIyanNlODYyNDkwY3EifQ.1CrUKQTuJH1TKJsw3yrf-w";
 
 interface Location {
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
 }
 
 interface Event {
@@ -32,7 +32,7 @@ interface Event {
 
 interface EventMapProps {
   events: Event[];
-  radius: number;
+  radius?: number;
   location: Location;
 }
 
@@ -51,7 +51,7 @@ const EventMap: React.FC<EventMapProps> = ({ events, radius, location }) => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current as HTMLElement,
       style: "mapbox://styles/mapbox/dark-v11",
-      center: [location.longitude, location.latitude],
+      center: [parseFloat(location.longitude), parseFloat(location.latitude)],
       zoom: 8,
       projection: { name: "mercator" },
     });

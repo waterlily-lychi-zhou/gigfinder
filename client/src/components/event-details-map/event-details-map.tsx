@@ -7,8 +7,8 @@ mapboxgl.accessToken =
   "pk.eyJ1Ijoic3RlZmFuYnV0bGVyIiwiYSI6ImNtMzdmcncwMjBmamIyanNlODYyNDkwY3EifQ.1CrUKQTuJH1TKJsw3yrf-w";
 
 interface EventDetailsMapProps {
-  longitude: string | number;
-  latitude: string | number;
+  longitude: string | number | null;
+  latitude: string | number | null;
 }
 
 const EventDetailsMap: React.FC<EventDetailsMapProps> = ({

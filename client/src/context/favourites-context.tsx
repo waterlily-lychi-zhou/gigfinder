@@ -1,4 +1,10 @@
-import React, { createContext, useEffect, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  ReactNode,
+  useContext,
+} from "react";
 
 interface EventDetails {
   id: string;
@@ -13,13 +19,13 @@ interface EventDetails {
   venue: string;
 }
 
-interface FavouritesEvent {
+interface FavouriteEvent {
   eventId: string;
   eventDetails: EventDetails;
 }
 
 interface FavouritesContextType {
-  favourites: FavouritesEvent[];
+  favourites: FavouriteEvent[];
   addToFavourites: (event: EventDetails) => Promise<void>;
   deleteFromFavourites: (eventId: string) => Promise<void>;
 }
@@ -35,14 +41,14 @@ interface FavouritesProviderProps {
 export const FavouritesProvider: React.FC<FavouritesProviderProps> = ({
   children,
 }) => {
-  const [favourites, setFavourites] = useState<FavouritesEvent[]>([]);
+  const [favourites, setFavourites] = useState<FavouriteEvent[]>([]);
 
   // On load, fetch favourites from backend
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
         const response = await fetch("http://localhost:3001/api/favourites");
-        const data: FavouritesEvent[] = await response.json();
+        const data: FavouriteEvent[] = await response.json();
         setFavourites(data);
       } catch (error) {
         console.error("Error fetching favourites", error);
@@ -59,7 +65,7 @@ export const FavouritesProvider: React.FC<FavouritesProviderProps> = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ eventId: event.id, eventDetails: event }),
       });
-      const newFavourite: FavouritesEvent = await response.json();
+      const newFavourite: FavouriteEvent = await response.json();
       setFavourites([...favourites, newFavourite]);
     } catch (error) {
       console.error("Error adding to favourites", error);
@@ -87,4 +93,12 @@ export const FavouritesProvider: React.FC<FavouritesProviderProps> = ({
       {children}
     </FavouritesContext.Provider>
   );
+};
+
+export const useFavourites = (): FavouritesContextType => {
+  const context = useContext(FavouritesContext);
+  if (!context) {
+    throw new Error("useFavourites must be used within a FavouritesProvider");
+  }
+  return context;
 };

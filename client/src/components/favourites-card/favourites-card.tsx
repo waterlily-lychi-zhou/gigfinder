@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import "../event-card/event-card.css";
-import { FavouritesContext } from "../../context/favourites-context";
+import React, { useEffect } from "react";
+import { useFavourites } from "../../context/favourites-context";
 import { useNavigate } from "react-router-dom";
 
 interface EventDetails {
   id: string;
   name: string;
-  images: { url: string }[];
   dates: {
     start: {
       localDate: string;
@@ -14,19 +12,20 @@ interface EventDetails {
     };
   };
   venue: string;
+  images: { url: string }[];
 }
 
-interface FavouritesEvent {
+interface FavouriteEvent {
   eventId: string;
   eventDetails: EventDetails;
 }
 
 interface FavouritesCardProps {
-  event: FavouritesEvent;
+  event: FavouriteEvent;
 }
 
 const FavouritesCard: React.FC<FavouritesCardProps> = ({ event }) => {
-  const { favourites, deleteFromFavourites } = useContext(FavouritesContext);
+  const { favourites, deleteFromFavourites } = useFavourites();
   const navigate = useNavigate();
 
   useEffect(() => {}, [favourites, event.eventDetails.id]);
@@ -41,23 +40,16 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({ event }) => {
       <img
         src={event.eventDetails.images[0].url}
         alt={event.eventDetails.name}
-        className="event-image"
       />
       <div className="event-details">
         <h2 className="event-name">{event.eventDetails.name}</h2>
         <p className="event-date">{event.eventDetails.dates.start.localDate}</p>
         <p className="event-time">{event.eventDetails.dates.start.localTime}</p>
         <p className="event-venue">{event.eventDetails.venue}</p>
-        <button
-          className="remove-from-favourites"
-          onClick={() => deleteFromFavourites(event.eventId)}
-        >
+        <button onClick={() => deleteFromFavourites(event.eventId)}>
           Remove from Favourites
         </button>
-        <button
-          className="more-info"
-          onClick={() => handleMoreInfo(event.eventDetails)}
-        >
+        <button onClick={() => handleMoreInfo(event.eventDetails)}>
           More Info
         </button>
       </div>
