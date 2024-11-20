@@ -11,6 +11,18 @@ const eventsController = {
   getEvents: (async (req, res) => {
     try {
       const { lat, long } = req.query;
+
+      // Validate query parameters
+      if (!lat || !long) {
+        console.error("Missing query parameters: 'lat' or 'long'");
+        return res.status(400).json({ error: "Missing query parameters: 'lat' or 'long'" });
+      }
+
+      // Validate lat and long are numbers
+      if (isNaN(Number(lat)) || isNaN(Number(long))) {
+        console.error("Invalid query parameters: 'lat' and 'long' must be numeric");
+        return res.status(400).json({ error: "Invalid query parameters: 'lat' and 'long' must be numeric" });
+      }
       /* console.log(req.query); */
       const apiKey = process.env.TICKETMASTER_API_KEY;
       /* console.log("Ticketmaster API Key:", process.env.TICKETMASTER_API_KEY); */

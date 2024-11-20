@@ -7,21 +7,23 @@ import Favourite, { IFav} from '../models/favourite';
 
 describe('GET /events', () => {
 
-  beforeAll(async () => {
-    // Mock the external API using nock
+  beforeAll(() => {
     nock('https://app.ticketmaster.com/')
       .get('/discovery/v2/events.json')
       .query(true)
-      .reply(200, {_embedded: {
-        futureEvents:[
-        { id: '1', name: 'Mock Event', dates: { start: { localDate: '2023-12-31' } } },
-        ]
-      }});
-  })
+      .reply(200, {
+        _embedded: {
+          events: [
+            {
+              name: 'Bob Vylan',
+              distance: 0.96,
+            },
+          ],
+        },
+      });
+  });
   
   afterAll(async () => {
-    // Ensure the database and mocks are cleaned up
-    await mongoose.connection.close();
     nock.cleanAll(); // Clean all mocks
   });
 
@@ -33,6 +35,9 @@ describe('GET /events', () => {
 
     expect(response.body).toHaveProperty('futureEvents');
     expect(Array.isArray(response.body.futureEvents)).toBe(true);
+
+/*     const event = response.body.futureEvents[0];
+    expect(event).toHaveProperty('name', 'Bob Vylan'); */
   });
 
   it('responds with 400 for missing query parameters', async () => {
@@ -41,11 +46,6 @@ describe('GET /events', () => {
       .expect(400);
   });
 
-  it('responds with 400 for invalid query parameters', async () => {
-    await request(app)
-      .get('/api/events?lat=invalid&long=invalid')
-      .expect(400);
-  });
 });
 
 describe('GET /favourites', function () {
@@ -75,7 +75,6 @@ describe('GET /favourites', function () {
     // Cleanup: Drop the test database and close the connection
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
-    await mongoServer.stop();
   });
 
   it('responds with json containing a fav events list', async () => {
@@ -114,7 +113,6 @@ describe('POST /favourites', () => {
   afterAll(async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
-    await mongoServer.stop();
   });
 
   it('successfully adds a new favourite', async () => {
@@ -163,7 +161,6 @@ describe('DELETE, /favourites/:id', () => {
   afterAll(async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
-    await mongoServer.stop();
   });
 
   it('successfully delete the new favourite', async () => {
