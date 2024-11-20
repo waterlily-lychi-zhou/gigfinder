@@ -17,6 +17,8 @@ describe('GET /events', () => {
             {
               name: 'Bob Vylan',
               distance: 0.96,
+              dates: { start: { dateTime: "2024-12-01T18:00:00Z" } },
+              classifications: [{ segment: { name: "Music" } }],
             },
           ],
         },
@@ -32,12 +34,14 @@ describe('GET /events', () => {
       .get('/api/events?lat=52.52437&long=13.41053')
       .expect('Content-Type', /json/)
       .expect(200);
+      
+    console.log(response);
 
     expect(response.body).toHaveProperty('futureEvents');
     expect(Array.isArray(response.body.futureEvents)).toBe(true);
 
-/*     const event = response.body.futureEvents[0];
-    expect(event).toHaveProperty('name', 'Bob Vylan'); */
+    const event = response.body.futureEvents[0];
+    expect(event).toHaveProperty('name', 'Bob Vylan');
   });
 
   it('responds with 400 for missing query parameters', async () => {
