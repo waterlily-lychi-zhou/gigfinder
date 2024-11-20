@@ -5,49 +5,52 @@ import mongoose, { mongo } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import Favourite, { IFav} from '../models/favourite';
 
-describe('GET /events', function () {
+describe('GET /events', () => {
 
-  beforeAll(() => {
+  beforeAll(async () => {
+    // Mock the external API using nock
     nock('https://app.ticketmaster.com/')
       .get('/discovery/v2/events.json')
       .query(true)
-      .reply(200, {_embedded: {futureEvents:[]}});
+      .reply(200, {_embedded: {
+        futureEvents:[
+        { id: '1', name: 'Mock Event', dates: { start: { localDate: '2023-12-31' } } },
+        ]
+      }});
   })
   
   afterAll(async () => {
-    // Close MongoDB connection after tests
+    // Ensure the database and mocks are cleaned up
     await mongoose.connection.close();
+    nock.cleanAll(); // Clean all mocks
   });
 
-  it('responds with json containing future events', function(done) {
-    request(app)
+  it('responds with JSON containing future events', async () => {
+    const response = await request(app)
       .get('/api/events?lat=52.52437&long=13.41053')
       .expect('Content-Type', /json/)
-      .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err);
-        expect(res.body).toHaveProperty('futureEvents');
-        expect(Array.isArray(res.body.futureEvents)).toBe(true);
-        done();
-      });
+      .expect(200);
+
+    expect(response.body).toHaveProperty('futureEvents');
+    expect(Array.isArray(response.body.futureEvents)).toBe(true);
   });
 
-  it('respond with 400 for missing query parameters', function (done) {
-    request(app)
+  it('responds with 400 for missing query parameters', async () => {
+    await request(app)
       .get('/api/events')
-      .expect(400, done);
+      .expect(400);
   });
 
-  it('respond with 400 for invalid query parameters', function (done) {
-    request(app)
+  it('responds with 400 for invalid query parameters', async () => {
+    await request(app)
       .get('/api/events?lat=invalid&long=invalid')
-      .expect(400, done);
+      .expect(400);
   });
 });
 
 describe('GET /favourites', function () {
   let mongoServer: MongoMemoryServer;
-  
+
   const mockFavourites = [
     {
       eventId: 'Z698xZC2Z17fw8y',
@@ -75,21 +78,17 @@ describe('GET /favourites', function () {
     await mongoServer.stop();
   });
 
-  it('responds with json containing a fav events list', function(done) {
-    request(app)
+  it('responds with json containing a fav events list', async () => {
+    const response = await request(app)
       .get('/api/favourites')
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err);
 
-        expect(Array.isArray(res.body)).toBe(true);
-        const fav = res.body[0];
-        expect(fav).toHaveProperty('eventId', 'Z698xZC2Z17fw8y');
-        expect(fav).toHaveProperty('eventDetails');
-        expect(fav.eventDetails).toHaveProperty('name', 'Das Große Schlagerfest | Box seat in the Ticketmaster Suite');
-        done();
-      });
+    expect(Array.isArray(response.body)).toBe(true);
+    const fav = response.body[0];
+    expect(fav).toHaveProperty('eventId', 'Z698xZC2Z17fw8y');
+    expect(fav).toHaveProperty('eventDetails');
+    expect(fav.eventDetails).toHaveProperty('name', 'Das Große Schlagerfest | Box seat in the Ticketmaster Suite');
   });
 })
 
@@ -118,28 +117,23 @@ describe('POST /favourites', () => {
     await mongoServer.stop();
   });
 
-  it('successfully adds a new favourite', function (done) {
-    jest.setTimeout(10000); 
-    request(app)
+  it('successfully adds a new favourite', async () => {
+    const response = await request(app)
       .post('/api/favourites')
       .send(newFavourite) // Send the new favourite as request body
       .expect('Content-Type', /json/)
       .expect(201) // Expect a 201 Created status
-      .end(async function (err, res) {
-        if (err) return done(err);
 
-        // Verify the response structure
-        expect(res.body).toHaveProperty('eventId', newFavourite.eventId);
-        expect(res.body).toHaveProperty('eventDetails');
-        expect(res.body.eventDetails).toHaveProperty('name', newFavourite.eventDetails.name);
+    // Verify the response structure
+    expect(response.body).toHaveProperty('eventId', newFavourite.eventId);
+    expect(response.body).toHaveProperty('eventDetails');
+    expect(response.body.eventDetails).toHaveProperty('name', newFavourite.eventDetails.name);
 
-        // Verify that the data was actually saved in the database
-        const savedFavourite = await Favourite.findOne({ eventId: newFavourite.eventId });
-        expect(savedFavourite).not.toBeNull();
-        expect(savedFavourite?.eventDetails.name).toBe(newFavourite.eventDetails.name);
+    // Verify that the data was actually saved in the database
+    const savedFavourite = await Favourite.findOne({ eventId: newFavourite.eventId });
+    expect(savedFavourite).not.toBeNull();
+    expect(savedFavourite?.eventDetails.name).toBe(newFavourite.eventDetails.name);
 
-        done();
-      });
   });
 });
 
@@ -172,19 +166,13 @@ describe('DELETE, /favourites/:id', () => {
     await mongoServer.stop();
   });
 
-  it('successfully delete the new favourite', function(done) {
-    request(app)
+  it('successfully delete the new favourite', async () => {
+    const response = await request(app)
       .delete(`/api/favourites/${favToDelete.eventId}`)
       .expect(200)
-      .end(async function (err, res) {
-        if (err) return done(err);
 
-        expect(res.body).toHaveProperty('message', 'Successfully removed from Favourites')
-
-        const deletedFav = await Favourite.findOne({eventId : favToDelete.eventId})
-        expect(deletedFav).toBeNull();
-
-        done();
-      })
+    expect(response.body).toHaveProperty('message', 'Successfully removed from Favourites')
+    const deletedFav = await Favourite.findOne({eventId : favToDelete.eventId})
+    expect(deletedFav).toBeNull();
   })
 })
