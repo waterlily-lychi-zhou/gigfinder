@@ -63,6 +63,7 @@ describe("EventList Component", () => {
   ];
 
   it("renders event cards for each event", () => {
+    console.log(global.TextDecoder);
     render(<EventList events={mockEvents} />);
     const eventCards = screen.getAllByTestId("event-card");
     expect(eventCards).toHaveLength(mockEvents.length);

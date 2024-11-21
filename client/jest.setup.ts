@@ -1,12 +1,18 @@
 import '@testing-library/jest-dom';
 import fetchMock from 'jest-fetch-mock';
+import { TextDecoder as NodeTextDecoder, TextEncoder as NodeTextEncoder } from 'util';
 
 fetchMock.enableMocks();
 
 if (typeof global.TextDecoder === 'undefined') {
-  global.TextDecoder = require('util').TextDecoder;
+    global.TextDecoder = NodeTextDecoder as any;
+    console.log('jest.setup.js is working')
+}
+  
+if (typeof global.TextEncoder === 'undefined') {
+    global.TextEncoder = NodeTextEncoder as any;
 }
 
-if (typeof global.TextEncoder === 'undefined') {
-  global.TextEncoder = require('util').TextEncoder;
+if (typeof global.Buffer === 'undefined') {
+    global.Buffer = require('buffer').Buffer;
 }

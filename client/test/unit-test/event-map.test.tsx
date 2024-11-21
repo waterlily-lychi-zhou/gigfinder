@@ -4,20 +4,20 @@ import EventMap from "../../src/components/event-map/event-map";
 import mapboxgl from "mapbox-gl";
 
 // Mock mapbox-gl to avoid rendering an actual map
-jest.mock("mapbox-gl", () => ({
-  Map: jest.fn(() => ({
-    remove: jest.fn(),
-  })),
-  Marker: jest.fn(() => ({
-    setLngLat: jest.fn().mockReturnThis(),
-    setPopup: jest.fn().mockReturnThis(),
-    addTo: jest.fn(),
-  })),
-  Popup: jest.fn(() => ({
-    setHTML: jest.fn().mockReturnThis(),
-  })),
-  accessToken: "",
-}));
+// jest.mock("mapbox-gl", () => ({
+//   Map: jest.fn(() => ({
+//     remove: jest.fn(),
+//   })),
+//   Marker: jest.fn(() => ({
+//     setLngLat: jest.fn().mockReturnThis(),
+//     setPopup: jest.fn().mockReturnThis(),
+//     addTo: jest.fn(),
+//   })),
+//   Popup: jest.fn(() => ({
+//     setHTML: jest.fn().mockReturnThis(),
+//   })),
+//   accessToken: "",
+// }));
 
 interface Event {
   name: string;
