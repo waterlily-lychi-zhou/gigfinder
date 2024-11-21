@@ -1,2 +1,21 @@
+# Node.js
+/node_modules
+/server/node_modules
+/client/node_modules
+/client/build
 .DS_Store
-../.DS_Store
+
+# Environment Variables
+.env
+
+# Ignore macOS system files
+.DS_Store
+**/.DS_Store
+
+# Ignore package-lock.json
+package-lock.json
+**/.DS_Store
+package.json
+
+# Ignore build files
+dist/

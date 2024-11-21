@@ -8,4 +8,14 @@
 # Environment Variables
 .env
 
+# Ignore macOS system files
 .DS_Store
+**/.DS_Store
+
+# Ignore package-lock.json
+package-lock.json
+**/.DS_Store
+package.json
+
+# Ignore build files
+dist/

@@ -5,7 +5,7 @@ import eventsController from './controllers/eventsController';
 const router = Router();
 
 // /events
-router.get('/events', eventsController.getEvents)
+router.get('/events', eventsController.getEvents);
 
 // /favourites
 router.get('/favourites', favouritesController.getFavourites)

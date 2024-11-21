@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 
@@ -8,9 +8,16 @@ const eventsController = {
 
   // event controller
   // handle ticketmaster api and format event data
-  getEvents: async function(req: Request, res: Response) {
+  getEvents: (async (req, res) => {
     try {
       const { lat, long } = req.query;
+
+      // Validate query parameters
+      if (!lat || !long || isNaN(Number(lat)) || isNaN(Number(long))) {
+        console.error("Missing query parameters: 'lat' or 'long'");
+        return res.status(400).json({ error: "Missing query parameters: 'lat' or 'long'" });
+      }
+
       /* console.log(req.query); */
       const apiKey = process.env.TICKETMASTER_API_KEY;
       /* console.log("Ticketmaster API Key:", process.env.TICKETMASTER_API_KEY); */
@@ -24,7 +31,7 @@ const eventsController = {
         return res.status(400).send(`Failed to fetch events: ${response.status}`);
       }
       
-      const data = await response.json();
+      const data : any = await response.json();
       
       // if no events, set to empty array 
       const events = data._embedded ? data._embedded.events : [];
@@ -39,8 +46,9 @@ const eventsController = {
       res.status(200).json({ futureEvents });
     } catch (error) {
       console.error('error fetching events:  ', error);
+      return res.status(500).json({ error: "Internal Server Error" });
     }
-  }
-} 
+  }) as RequestHandler,  // Explicitly cast the function as a RequestHandler
+}; 
 
 export default eventsController;

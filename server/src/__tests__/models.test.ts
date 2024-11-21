@@ -1,8 +1,8 @@
-const mongoose =  require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const Favourite = require('../models/favourite');
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import Favourite, { IFav } from '../models/favourite';
 
-let mongoServer;
+let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -18,7 +18,7 @@ afterAll(async () => {
 
 describe('Favourite Model - Schema Validation', () => {
   it('should save a valid favourite', async () => {
-    const validFavourite = new Favourite({
+    const validFavourite: IFav = new Favourite({
       eventId:'TestEvent123',
       eventDetails: {
         name: 'Test Event',

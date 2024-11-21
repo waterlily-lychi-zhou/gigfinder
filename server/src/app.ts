@@ -11,4 +11,4 @@ app.use(express.json());
 // Routes
 app.use('/api', routes);
 
-module.exports = app;
+export default app;

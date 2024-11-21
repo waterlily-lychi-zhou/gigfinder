@@ -1,15 +1,14 @@
-const request = require('supertest');
-const app = require('../app');
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const Favourite = require('../models/favourite');
+import request from 'supertest';
+import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server-core';
+import app from '../app';
+import Favourite, { IFav } from '../models/favourite';
 
-let mongoServer;
+let mongoServer: MongoMemoryServer;
 
 describe('Favourites Controller', () => {
   beforeAll(async () => {
     // Start an in-memory MongoDB server
-
     mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
     await mongoose.connect(uri);
@@ -21,8 +20,18 @@ describe('Favourites Controller', () => {
     await mongoServer.stop();
   })
 
+  beforeEach(async () => {
+    await Favourite.deleteMany(); // Clean the database before each test
+  })
+  afterEach(async () => {
+    await Favourite.deleteMany(); // Clean the database after each test
+  })
+
   it('should fetch all favourites', async () => {
-    await Favourite.create({eventId: 'TestEvent123' , eventDetails: { name: 'Test Event' } })
+    await Favourite.create({
+      eventId: 'TestEvent123',
+      eventDetails: { name: 'Test Event' },
+    });
 
     // Perform the GET request
     const res = await request(app).get('/api/favourites').expect(200);
@@ -31,7 +40,13 @@ describe('Favourites Controller', () => {
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBe(1);
     expect(res.body[0].eventId).toBe('TestEvent123');
+    expect(res.body[0].eventDetails.name).toBe('Test Event');
   })
+
+  it('should return an empty array when no favourites exist', async () => {
+    const res = await request(app).get('/api/favourites').expect(200);
+    expect(res.body).toEqual([]);
+  });
 
   it('should handle adding a favourite', async () => {
     const newFavourite = {
@@ -49,7 +64,9 @@ describe('Favourites Controller', () => {
     expect(res.body.eventId).toBe('NewEvent123');
 
     // Verify the data was saved in the database
-    const savedFavourite = await Favourite.findOne({ eventId: 'NewEvent123' });
+    const savedFavourite : any = await Favourite.findOne<IFav>({ 
+      eventId: 'NewEvent123',
+     });
     expect(savedFavourite).not.toBeNull();
     expect(savedFavourite.eventDetails.name).toBe('New Event');
   })
