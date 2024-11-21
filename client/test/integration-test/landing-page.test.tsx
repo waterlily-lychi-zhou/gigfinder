@@ -18,7 +18,7 @@ interface GeolocationPosition {
 
 declare global {
   interface Navigator {
-    geolocation: Geolocation;
+    readonly geolocation: Geolocation;
   }
 }
 
